@@ -11,6 +11,8 @@ from ship_controller import ShipController
 class Game(Canvas):
     __GAME_WINDOW_WIDTH = 800
     __GAME_WINDOW_HEIGHT = 600
+    bubbles = list()
+    bubble_factory = BubbleFactory()
 
     def __init__(self, master):
         super().__init__(master,
@@ -26,23 +28,26 @@ class Game(Canvas):
                   self.get_window_center_y())
         ShipController(self, ship)
         collision_detector = CollisionDetector()
-        bubble_factory = BubbleFactory()
 
-        bubbles = list()
-
-        for i in range(50):
-            bubble = bubble_factory.create_random(self)
+        for _ in range(50):
+            bubble = self.bubble_factory.create_random(self)
             bubble.move(self.get_random_window_x(), self.get_random_window_y())
-            bubbles.append(bubble)
+            self.bubbles.append(bubble)
 
         while 1:
-            for bubble in bubbles:
+            for bubble in self.bubbles:
                 if collision_detector.are_colliding(ship, bubble):
-                    bubble.destroy()
-                    bubbles.remove(bubble)
+                    self.delete_bubble(bubble)
 
             self.update()
             sleep(0.01)
+
+    def delete_bubble(self, bubble):
+        bubble.destroy()
+        self.bubbles.remove(bubble)
+        new_bubble = self.bubble_factory.create_random(self)
+        new_bubble.move(self.get_random_window_x(), self.get_random_window_y())
+        self.bubbles.append(new_bubble)
 
     def get_window_center_x(self):
         return self.__GAME_WINDOW_WIDTH / 2
