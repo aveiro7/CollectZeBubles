@@ -1,6 +1,7 @@
 from tkinter import *
 
 from ship import Ship
+from ship_controller import ShipController
 
 
 class Game(Canvas):
@@ -13,11 +14,13 @@ class Game(Canvas):
                          height=self.__GAME_WINDOW_HEIGHT,
                          bg="darkblue")
         self.pack()
+        self.focus_set()
 
     def start(self):
         ship = Ship(self)
         ship.move(self.get_window_center_x(),
                   self.get_window_center_y())
+        ShipController(self, ship)
         self.mainloop()
 
     def get_window_center_x(self):
