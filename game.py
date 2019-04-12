@@ -3,6 +3,7 @@ from time import sleep
 from tkinter import *
 
 from bubble_factory import BubbleFactory
+from collision_detector import CollisionDetector
 from ship import Ship
 from ship_controller import ShipController
 
@@ -24,6 +25,7 @@ class Game(Canvas):
         ship.move(self.get_window_center_x(),
                   self.get_window_center_y())
         ShipController(self, ship)
+        collision_detector = CollisionDetector()
         bubble_factory = BubbleFactory()
 
         bubbles = list()
@@ -34,6 +36,11 @@ class Game(Canvas):
             bubbles.append(bubble)
 
         while 1:
+            for bubble in bubbles:
+                if collision_detector.are_colliding(ship, bubble):
+                    bubble.destroy()
+                    bubbles.remove(bubble)
+
             self.update()
             sleep(0.01)
 
