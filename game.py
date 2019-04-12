@@ -50,7 +50,8 @@ class Game(Canvas):
         bubble.destroy()
         self.bubble_controller.deregister(bubble)
         new_bubble = self.bubble_factory.create_random(self)
-        new_bubble.move(self.get_random_window_x(), self.get_random_window_y())
+        new_position_x = randint(self.get_window_center_x(), self.__GAME_WINDOW_WIDTH) + 100
+        new_bubble.move(new_position_x, self.get_random_window_y())
         self.bubble_controller.register(new_bubble)
 
     def remove_if_outside(self, bubble):
