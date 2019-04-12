@@ -2,6 +2,7 @@ from random import randint
 from time import sleep
 from tkinter import *
 
+from bubble_factory import BubbleFactory
 from ship import Ship
 from ship_controller import ShipController
 
@@ -23,6 +24,14 @@ class Game(Canvas):
         ship.move(self.get_window_center_x(),
                   self.get_window_center_y())
         ShipController(self, ship)
+        bubble_factory = BubbleFactory()
+
+        bubbles = list()
+
+        for i in range(50):
+            bubble = bubble_factory.create_random(self)
+            bubble.move(self.get_random_window_x(), self.get_random_window_y())
+            bubbles.append(bubble)
 
         while 1:
             self.update()
