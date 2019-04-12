@@ -2,6 +2,9 @@ class Ship:
     canvas = None
     center_hull = None
     outer_hull = None
+    radius = 15
+    center_x = 15
+    center_y = 15
 
     def __init__(self, canvas, color="green"):
         self.canvas = canvas
@@ -11,3 +14,5 @@ class Ship:
     def move(self, x_offset, y_offset):
         self.canvas.move(self.center_hull, x_offset, y_offset)
         self.canvas.move(self.outer_hull, x_offset, y_offset)
+        self.center_x += x_offset
+        self.center_y += y_offset

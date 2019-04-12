@@ -1,5 +1,5 @@
 class ShipController:
-    __SHIP_SPEED = 20
+    __SHIP_SPEED = 10
 
     def __init__(self, canvas, ship, move_up_key="<Up>", move_down_key="<Down>", move_left_key="<Left>",
                  move_right_key="<Right>"):
