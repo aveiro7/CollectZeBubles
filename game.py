@@ -1,4 +1,3 @@
-from math import sqrt
 from random import randint
 from time import sleep
 from tkinter import *
@@ -40,13 +39,6 @@ class Game(Canvas):
 
     def get_random_window_y(self):
         return randint(0, self.__GAME_WINDOW_HEIGHT)
-
-    def calculate_distance(self, point1_x, point1_y, point2_x, point2_y):
-        return sqrt((point2_x - point1_x) ** 2 + (point2_y - point1_y) ** 2)
-
-    def detect_collision(self, ship, bubble):
-        return ship.radius + bubble.radius >= self.calculate_distance(ship.center_x, ship.center_y, bubble.center_x,
-                                                                      bubble.center_y)
 
 
 game = Game(Tk())
