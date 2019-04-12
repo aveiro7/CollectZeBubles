@@ -4,15 +4,16 @@ from tkinter import *
 class Game(Canvas):
 
     def __init__(self, master):
-        super().__init__(master)
-        self.start_game()
+        super().__init__(master,
+                         width=800,
+                         height=600,
+                         bg="darkblue")
+        self.pack()
 
-    def start_game(self):
+    def start(self):
+        self.mainloop()
         print("Game started")
 
 
-root = Tk()
-root.geometry("800x600")
-
-game = Game(root)
-game.mainloop()
+game = Game(Tk())
+game.start()
