@@ -2,6 +2,7 @@ from random import randint
 from time import sleep
 from tkinter import *
 
+from bubble_controller import BubbleController
 from bubble_factory import BubbleFactory
 from collision_detector import CollisionDetector
 from ship import Ship
@@ -34,10 +35,15 @@ class Game(Canvas):
             bubble.move(self.get_random_window_x(), self.get_random_window_y())
             self.bubbles.append(bubble)
 
+        bubble_controller = BubbleController(self, self.bubbles)
+
         while 1:
             for bubble in self.bubbles:
                 if collision_detector.are_colliding(ship, bubble):
                     self.delete_bubble(bubble)
+                self.remove_if_outside(bubble)
+
+            bubble_controller.move_all()
 
             self.update()
             sleep(0.01)
@@ -48,6 +54,10 @@ class Game(Canvas):
         new_bubble = self.bubble_factory.create_random(self)
         new_bubble.move(self.get_random_window_x(), self.get_random_window_y())
         self.bubbles.append(new_bubble)
+
+    def remove_if_outside(self, bubble):
+        if bubble.center_x + bubble.radius < 0:
+            self.delete_bubble(bubble)
 
     def get_window_center_x(self):
         return self.__GAME_WINDOW_WIDTH / 2
