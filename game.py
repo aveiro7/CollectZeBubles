@@ -1,5 +1,7 @@
 from tkinter import *
 
+from ship import Ship
+
 
 class Game(Canvas):
     __GAME_WINDOW_WIDTH = 800
@@ -13,17 +15,16 @@ class Game(Canvas):
         self.pack()
 
     def start(self):
-        print("Game started")
-        self.draw_ship()
-        self.move_ship(self.__GAME_WINDOW_WIDTH / 2, self.__GAME_WINDOW_HEIGHT / 2)
+        ship = Ship(self)
+        ship.move(self.get_window_center_x(),
+                  self.get_window_center_y())
         self.mainloop()
 
-    def draw_ship(self):
-        self.create_polygon(5, 5, 5, 25, 30, 15, fill='green', tags="ship")
-        self.create_oval(0, 0, 30, 30, outline='green', tags="ship")
+    def get_window_center_x(self):
+        return self.__GAME_WINDOW_HEIGHT / 2
 
-    def move_ship(self, x_offset, y_offset):
-        self.move("ship", x_offset, y_offset)
+    def get_window_center_y(self):
+        return self.__GAME_WINDOW_HEIGHT / 2
 
 
 game = Game(Tk())
